@@ -81,14 +81,14 @@ tell application "OmniFocus"
 					"There was an error getting the context for the task" & name of theSelection
 				end try
 				-- First Test: Future Start Date found
-				if start date of theSelection is not missing value and start date of theSelection is greater than (current date) then
-					my createReminder(thelist, name of theSelection, start date of theSelection, "omnifocus:///task/" & id of theSelection as rich text)
+				if defer date of theSelection is not missing value and defer date of theSelection is greater than (current date) then
+					my createReminder(thelist, name of theSelection, defer date of theSelection, "omnifocus:///task/" & id of theSelection as text)
 					-- Second Test: No valid start date, but future due date found
 				else if due date of theSelection is not missing value and the due date of theSelection is greater than (current date) then
-					my createReminder(thelist, name of theSelection, due date of theSelection, "omnifocus:///task/" & id of theSelection as rich text)
+					my createReminder(thelist, name of theSelection, due date of theSelection, "omnifocus:///task/" & id of theSelection as text)
 					-- No valid start date or due date found. I could test for start date > due date, but that's on the user.
 				else
-					my createReminder(thelist, name of theSelection, missing value, "omnifocus:///task/" & id of theSelection as rich text)
+					my createReminder(thelist, name of theSelection, missing value, "omnifocus:///task/" & id of theSelection as text)
 				end if
 				if note of theSelection is not "" then
 					set note of theSelection to "OF2Reminders: " & (current date) & return & note of theSelection
